@@ -3,34 +3,14 @@ import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-/* things to delete:
-     x state *
-     x handleChanges
-     x handleSubmit
-     x form onSubmit
-     x input onChange
-     input values
-     labels
-*/
-
-const AnimalForm = ({ errors, touched, values, status }) => {
-  /*const [animal, setAnimal] = useState({ species: "" });
-
-  const handleChange = event => {
-    setAnimal({ ...animal, [event.target.name]: event.target.value });
-  };
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    console.log(animal.species);
-  };*/
-
-  const [animals, setAnimals] = useState([]);
-  console.log(animals);
+const UserForm = ({ errors, touched, values, status }) => {
+  
+  const [users, setUsers] = useState([]);
+  console.log(users);
 
   useEffect(() => {
     if (status) {
-      setAnimals([...animals, status]);
+      setUsers([...users, status]);
     }
   }, [status]);
 
@@ -52,8 +32,16 @@ const AnimalForm = ({ errors, touched, values, status }) => {
           <option>Select User Role</option>
           <option value="UI/UX">UI/UX</option>
           <option value="Front-End">Front-End</option>
-          <option value="omnivore">Omnivore</option>
+          <option value="Back-End">Back-End</option>
         </Field>
+        <Field
+          type="password"
+          name="pwd"
+          placeholder="Password"
+        />
+        {touched.notes && errors.notes && (
+          <p className="error">{errors.notes}</p>
+        )}
         <label className="checkbox-container">
           I Agree to TOS
           <Field
@@ -63,19 +51,11 @@ const AnimalForm = ({ errors, touched, values, status }) => {
           />
           <span className="checkmark" />
         </label>
-        <Field
-          component="textarea"
-          type="text"
-          name="notes"
-          placeholder="Notes"
-        />
-        {touched.notes && errors.notes && (
-          <p className="error">{errors.notes}</p>
-        )}
         <button>Submit!</button>
       </Form>
-      {animals.map(animal => (
-        <p key={animal.id}>{animal.species}</p>
+      Registered Users:
+      {users.map(user => (
+        <p className="list" key={user.id}>{user.username},  {user.email},  {user.role}</p>
       ))}
     </div>
   );
@@ -108,6 +88,6 @@ const formikHOC = withFormik({
       .catch(err => console.error("handleSubmit: catch: err: ", err));
   }
 });
-const AnimalFormWithFormik = formikHOC(AnimalForm);
+const UserFormWithFormik = formikHOC(UserForm);
 
-export default AnimalFormWithFormik;
+export default UserFormWithFormik;
