@@ -1,13 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import AnimalForm from './components/Form';
+import logo from './logo.svg';
+import './App.css';
 
-import './styles.css';
+import UserForm from './components/Form';
 
 function App() {
   return (
     <div className="App">
-      <AnimalForm />
+     <UserForm />
     </div>
   );
 }
